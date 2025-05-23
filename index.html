@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-top: 50px;
+            animation: fadeIn 2s ease-in;
+        }
+        p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 20px auto;
+            animation: fadeIn 3s ease-in;
+        }
+        img {
+            width: 300px;
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: fadeIn 4s ease-in;
+        }
+        .confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="confetti"></canvas>
+    <h1>🎉 Happy 18th Birthday! Shruti ❤️🎂</h1>
+    <p>Wishing you a day filled with love, laughter, and everything that brings you joy. You are amazing, and you deserve the best today and always. 💖</p>
+    <img src="img.png" alt="Birthday Image">
+
+    <audio autoplay loop>
+        <source src="Sound1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Simple confetti animation using canvas
+        const canvas = document.querySelector('.confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let pieces = [];
+        for (let i = 0; i < 150; i++) {
+            pieces.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 6 + 2,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                speedY: Math.random() * 3 + 1
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pieces.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+            });
+        }
+
+        function update() {
+            pieces.forEach(p => {
+                p.y += p.speedY;
+                if (p.y > canvas.height) p.y = 0;
+            });
+        }
+
+        function animate() {
+            draw();
+            update();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
